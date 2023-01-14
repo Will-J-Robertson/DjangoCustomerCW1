@@ -1,0 +1,67 @@
+
+{% include 'navbar.html' %}
+{% load static %}
+<!DOCTYPE html>
+
+{% block content %}
+<html>
+  <head>
+    <style>
+
+        * { margin:0; padding:0}
+
+      img {
+        width: 220px;
+        height: 300px;
+        Padding: 10px;
+      }
+
+        .grid-container {
+            display:grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            padding: 10px;
+            grid-gap: 40px;
+            margin: 0 auto;
+        }
+
+        .main-container {
+            background-color: rgb(0, 0, 0);
+            margin: 0 auto;
+            text-align: center;
+            height: 100%;
+        }
+
+
+        .container {
+            background-color: rgb(46, 40, 40);
+            padding: 10px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        
+    </style>
+  </head>
+  <body>
+    <h2 style="color: rgb(255, 255, 255)"> FILMS</h2>
+    <div class = 'main-container'>
+        <div class = 'grid-container'> 
+            {% for row in lines %}
+            {% with 'Customer/'|add:row.title|add:'.jpg' as film_title %}
+            <div onclick="window.location.href='/ticket/{{ row.title }} ';" class="container">
+                <div>
+                    <img src="{% static film_title  %}">
+                    <div> <p style="color: rgb(255, 255, 255)"> {{ row.title }} </p> </div>
+                    <div> <p style="color: rgb(255, 255, 255)"> {{ row.duration }} </p></div>
+                    <div> <p style="color: rgb(255, 255, 255)">  Age Rating:  {{ row.ageRating }}+ years </p></div>
+                </div>
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+  </body>
+</html>
+
+{% endblock %}
